@@ -1,0 +1,18 @@
+node {
+    env.gitHome = tool name: 'Default', type: 'git'
+    env.Java_HOME = tool name: 'myjava', type: 'jdk'
+    def mvnHome = tool name: 'mymaven', type: 'maven'
+    def mvnCMD = "${mvnHome}/bin/mvn"
+    
+    stage('Checkout') {
+    
+            git 'https://github.com/edureka-git/DevOpsClassCodes.git'    
+        
+    }
+    stage('Compile') {
+        sh "${mvnCMD} compile"
+    }
+    stage('Package') {
+            sh "${mvnCMD} package"
+    }
+}
